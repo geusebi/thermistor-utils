@@ -60,7 +60,11 @@ Use the reference implementation in C (example-1.c)
 
 int main(void)
 {
-    struct sh_s coefficients = {1./1190, 1./3852, 1./6379828};
+    struct sh_s coefficients = {
+        0.0008402250578523375,
+        0.00025963477647737156,
+        1.5674403473853433e-07
+    };
     
     // 25C to Ohm and 10k Ohm to Celsius
     double  R_at_25   = sh_resistance(coefficients, 25),
@@ -72,7 +76,7 @@ int main(void)
 
 // gcc -o example-1 -I ../src -lm ../src/sh_converter.c example-1.c
 // ./example-1
-// 25 Celsius -> 10005 Ohms
+// 25 Celsius -> 10000 Ohms
 // 10k Ohms   -> 25 Celsius
 ```
 
