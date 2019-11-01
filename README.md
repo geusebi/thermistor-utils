@@ -48,13 +48,13 @@ print(conv.to_cstr())
 # compact but less precise representation
 # (inverse of coefficients and no temperature range)
 print(conv.to_cstr(short=True, with_temp=False))
-    
-    # {1/1190, 1/3852, 1/6379828}
+
+# {1/1190, 1/3852, 1/6379828}
 ```
 
 Use the reference implementation in C (example-1.c)
 
-```C
+```c
 #include <stdio.h>
 #include <thermistor_utils.h>
 
