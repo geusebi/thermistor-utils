@@ -79,7 +79,7 @@ class SH_converter(object):
         A, B, C, Tl, Th = self.A, self.B, self.C, self.Tl, self.Th
 
         if short:
-            ABC = f"1/{round(1/A)}, 1/{round(1/B)}, 1/{round(1/C)}"
+            ABC = f"1./{round(1/A)}, 1./{round(1/B)}, 1./{round(1/C)}"
         else:
             ABC = f"{A}, {B}, {C}"
 
