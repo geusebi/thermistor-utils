@@ -88,14 +88,6 @@ class SH_converter(object):
 
         return f"{{{ABC}}}"
 
-    def to_cstr2(self, with_temp=True):
-        ABC = f"1/{round(1/self.A)}, 1/{round(1/self.B)}, 1/{round(1/self.C)}"
-
-        if with_temp:
-            return f"{{{ABC}, {self.Tl}, {self.Th}}}"
-
-        return f"{{{ABC}}}"
-
     def __repr__(self):
         return (
             f"SH_converter("
