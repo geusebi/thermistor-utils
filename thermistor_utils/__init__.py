@@ -105,18 +105,15 @@ class Beta_converter(object):
     Convert between temperature and resistance given the beta
     value and R0 temperature of a termistor.
     """
-    __slots__ = ("beta", "R0", "Tl", "Th", )
+    __slots__ = ("beta", "R0", "T0", "T1", )
 
-    def __init__(self, beta, R0, Tl, Th):
-        """
-        Create a converter where `beta` is the beta value in
+    def __init__(self, beta, R0, T0, T1):
+        """ Create a converter where `beta` is the beta value in 
         Kelvin and `R0` is the resistance at 25 degrees Celsius.
-        `Tl` and `Th` are respectively the lower and
-        higher temperature references used to calculate the
-        beta value.
-        """
-        self.Tl, self.Th = Tl, Th
+        `T0` and `T1` are respectively the temperature references
+        used to calculate the beta value. """
         self.beta, self.R0 = beta, R0
+        self.T0, self.T1 = T0, T1
 
     @staticmethod
     def from_beta(beta, R0, T0=25, T1=50):
@@ -132,8 +129,8 @@ class Beta_converter(object):
         """
         Calculate the temperature (Celsius) given the resistance.
         """
-        T0 = 25 + 273.15
         beta, R0 = self.beta, self.R0
+        T0 = self.T0 + 273.15
         T = 1 / (1 / T0 + 1 / beta * log(R / R0)) - 273.15
 
         return T
@@ -142,7 +139,7 @@ class Beta_converter(object):
         """
         Calculate the resistance given the temperature (Celsius).
         """
-        T0 = 25 + 273.15
+        T0 = self.T0 + 273.15
         beta, R0 = self.beta, self.R0
         R = R0 * exp(beta * ( 1 / (T + 273.15) - 1 / T0))
 
@@ -152,9 +149,12 @@ class Beta_converter(object):
         return (
             f"Beta_converter("
             f"beta={self.beta:g}, R0={self.R0:g}, "
-            f"Tl={self.Tl:g}, Th={self.Th:g})"
+            f"T0={self.T0:g}, T1={self.T1:g})"
         )
 
     def __str__(self):
-        Tm = int((self.Tl + self.Th) / 2)
-        return f"Beta_converter[B={self.beta}K {self.Tl}/{self.Th}]"
+        return (
+            f"Beta_converter["
+            f"B={self.beta}K at {self.R0} "
+            f"{self.T0}/{self.T1}]"
+        )
