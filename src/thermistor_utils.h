@@ -19,14 +19,14 @@ sh_resistance(struct sh_s SH, double T);
 struct beta_s {
     int beta;
     int R0;
-    int Tl;
-    int Th;
+    int T0;
+    int T1;
 };
 
 double
-beta_temperature(struct sh_s SH, double R);
+beta_temperature(struct beta_s SH, double R);
 
 double
-beta_resistance(struct sh_s SH, double T);
+beta_resistance(struct beta_s SH, double T);
 
 #endif
