@@ -28,10 +28,10 @@ class SH_converter(object):
     @staticmethod
     def from_points(TR_points):
         """
-        Create a converter by computing coefficients from three
-        evenly spaced temperature-resistance pairs.
+        Create a `SH_converter` by computing coefficients from
+        three evenly spaced temperature-resistance pairs.
         `TR_points` is a sequence of three temp/res pairs.
-
+        
         See `SH_converter`.
         """
         (T1, R1), (T2, R2), (T3, R3) = TR_points
@@ -76,6 +76,19 @@ class SH_converter(object):
         return R
 
     def to_cstr(self, short=False, with_temp=True):
+        """
+        Return a string with the `A`, `B` and `C` coefficients and,
+        if available, the temperatures from which they've been
+        derived.
+        
+        Use `with_temp` to control whether the low/high temperature
+        should be printed.
+        
+        Use `short` to force a more compact representation of `ABC`
+        values (i.e. print the inverse formula for each coefficient).
+        While prettier in source there could be a slight precision
+        loss.
+        """
         A, B, C, Tl, Th = self.A, self.B, self.C, self.Tl, self.Th
 
         if short:
@@ -89,6 +102,14 @@ class SH_converter(object):
         return f"{{{ABC}}}"
 
     def __repr__(self):
+        """
+        Tentatively print the converter to satisfy
+            
+            converter = eval(converter)
+        
+        Where equality means different objects but same functionality.
+        """
+        # todo: handle preence/absence of Tl, Th
         return (
             f"SH_converter("
             f"A={self.A}, B={self.B}, C={self.C}, "
@@ -96,6 +117,10 @@ class SH_converter(object):
         )
 
     def __str__(self):
+        """
+        Create a string representation of the object.
+        """
+        # todo: handle preence/absence of Tl, Th
         Tm = int((self.Tl + self.Th) / 2)
         return f"SH_converter[{self.Tl:g} : {Tm:g} : {self.Th:g}]"
 
