@@ -75,7 +75,7 @@ class SH_converter(object):
         
         return R
 
-    def to_cstr(self, short=False, with_temp=True):
+    def to_cstr(self, compact=False, with_temps=None):
         """
         Return a string with the `A`, `B` and `C` coefficients and,
         if available, the temperatures from which they've been
@@ -84,14 +84,14 @@ class SH_converter(object):
         Use `with_temp` to control whether the low/high temperature
         should be printed.
         
-        Use `short` to force a more compact representation of `ABC`
+        Use `compact` to use a shorter representation for `ABC`
         values (i.e. print the inverse formula for each coefficient).
         While prettier in source there could be a slight precision
         loss.
         """
         A, B, C, Tl, Th = self.A, self.B, self.C, self.Tl, self.Th
 
-        if short:
+        if compact:
             ABC = f"1./{round(1/A)}, 1./{round(1/B)}, 1./{round(1/C)}"
         else:
             ABC = f"{A}, {B}, {C}"
