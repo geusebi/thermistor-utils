@@ -76,6 +76,10 @@ class SH_converter(object):
         return R
 
     def _to_str_impl(self, compact=False, with_temps=True):
+        """
+        Stringify (kinda) implementation used by
+        `__repr__`, `__str__` and `to_cstr`.
+        """
         A, B, C, Tl, Th = self.A, self.B, self.C, self.Tl, self.Th
 
         if compact:
