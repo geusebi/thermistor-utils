@@ -47,7 +47,7 @@ print(conv.to_cstr())
 
 # compact but less precise representation
 # (inverse of coefficients and no temperature range)
-print(conv.to_cstr(short=True, with_temp=False))
+print(conv.to_cstr(compact=True, with_temp=False))
 
 # {1./1190, 1./3852, 1./6379828}
 ```
