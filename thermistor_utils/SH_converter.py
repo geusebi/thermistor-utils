@@ -75,6 +75,19 @@ class SH_converter(object):
         
         return R
 
+    def _to_str_impl(self, compact=False, with_temps=True):
+        A, B, C, Tl, Th = self.A, self.B, self.C, self.Tl, self.Th
+
+        if compact:
+            ABC = f"1./{round(1/A)}, 1./{round(1/B)}, 1./{round(1/C)}"
+        else:
+            ABC = f"{A}, {B}, {C}"
+
+        if with_temps and Tl is not None and Th is not None:
+            return f"{ABC}, {Tl}, {Th}"
+
+        return f"{ABC}"
+
     def to_cstr(self, compact=False, with_temps=True):
         """
         Return a string with the `A`, `B` and `C` coefficients and,
@@ -89,17 +102,8 @@ class SH_converter(object):
         While prettier in source there could be a slight precision
         loss.
         """
-        A, B, C, Tl, Th = self.A, self.B, self.C, self.Tl, self.Th
-
-        if compact:
-            ABC = f"1./{round(1/A)}, 1./{round(1/B)}, 1./{round(1/C)}"
-        else:
-            ABC = f"{A}, {B}, {C}"
-
-        if with_temp and Tl is not None and Th is not None:
-            return f"{{{ABC}, {Tl}, {Th}}}"
-
-        return f"{{{ABC}}}"
+        s = self._to_str_impl(compact, with_temps)
+        return f"{{{s}}}"
 
     def __repr__(self):
         """
@@ -109,18 +113,12 @@ class SH_converter(object):
         
         Where equality means different objects but same functionality.
         """
-        # todo: handle preence/absence of Tl, Th
-        return (
-            f"SH_converter("
-            f"A={self.A}, B={self.B}, C={self.C}, "
-            f"Tl={self.Tl}, Th={self.Th})"
-        )
+        s = self._to_str_impl(compact=False, with_temps=True)
+        return f"SH_converter({s})"
 
     def __str__(self):
         """
         Create a string representation of the object.
         """
-        # todo: handle preence/absence of Tl, Th
-        Tm = int((self.Tl + self.Th) / 2)
-        return f"SH_converter[{self.Tl:g} : {Tm:g} : {self.Th:g}]"
-
+        s = self._to_str_impl(compact=True, with_temps=True)
+        return f"SH_converter[{s}]"
