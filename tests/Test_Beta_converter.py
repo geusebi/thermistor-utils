@@ -33,7 +33,7 @@ class Test_Beta_converter(unittest.TestCase):
         self.assertEqual(T_10k, 25.000)
         self.assertEqual(R_25c, 10000.000)
     
-    # ~ def testCreationFromBeta(self):
+    def testCreationFromBeta(self):
         beta, R0, T0, T1 = Beta_values
         
         conv = Beta_converter.from_beta(*Beta_values)
@@ -56,15 +56,12 @@ class Test_Beta_converter(unittest.TestCase):
             if temp < 25:
                 Tmaxdiff = 3
                 Rmaxdiff = res * .20
-                print(temp, Tdiff, R, Rdiff, Rmaxdiff)
             elif temp <= 50:
                 Tmaxdiff = .1
                 Rmaxdiff = res * .01
-                print(temp, Tdiff, R, Rdiff, Rmaxdiff)
             else:
                 Tmaxdiff = 7
                 Rmaxdiff = res * .20
-                print(temp, Tdiff, R, Rdiff, Rmaxdiff)
             
             self.assertTrue(Tdiff <= Tmaxdiff)
             self.assertTrue(Rdiff <= Rmaxdiff)
