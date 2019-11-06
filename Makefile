@@ -13,6 +13,7 @@ all: $(OBJS)
 	
 
 objs/%.o: src/%.c $(HEADERS)
+	@mkdir objs
 	$(CC) -c -o $@ $< $(CFLAGS)
 
 tests: python-tests
@@ -23,3 +24,4 @@ python-tests:
 
 clean:
 	rm -f objs/*.o
+	rmdir objs
