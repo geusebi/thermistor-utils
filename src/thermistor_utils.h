@@ -24,9 +24,9 @@ struct beta_s {
 };
 
 double
-beta_temperature(struct beta_s SH, double R);
+beta_temperature(struct beta_s B, double R);
 
 double
-beta_resistance(struct beta_s SH, double T);
+beta_resistance(struct beta_s B, double T);
 
 #endif
