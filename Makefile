@@ -1,5 +1,5 @@
 CC = gcc
-CFLAGS = -O3
+CFLAGS = -O0
 
 .PHONY: all clean tests python-tests
 
@@ -13,7 +13,7 @@ all: $(OBJS)
 	
 
 objs/%.o: src/%.c $(HEADERS)
-	@mkdir objs
+	@mkdir -p objs
 	$(CC) -c -o $@ $< $(CFLAGS)
 
 tests: python-tests
