@@ -26,8 +26,8 @@ obj/%.o: src/%.c $(HEADERS)
 	@mkdir -p obj
 	$(CC) -c -o $@ $(CFLAGS) $<
 
-tests: python-tests
-	
+tests: bin/thermistor_convert
+	python3 -m unittest tests -v
 
 python-tests:
 	python3 -m unittest tests -v
