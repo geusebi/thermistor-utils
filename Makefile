@@ -1,30 +1,28 @@
 CC = gcc
 
-BINDIR = bin
-SOURCEDIR = src
-INCLUDEDIR = $(SOURCEDIR)/include
-
-CFLAGS = -O3 -I$(INCLUDEDIR)
+CFLAGS = -O3 -Isrc/include
 CLIBS = -lm
 
-BIN = $(BINDIR)/thermistor_convert
-HEADER = $(INCLUDEDIR)/thermistor_utils.h
-SOURCE = $(SOURCEDIR)/thermistor_convert.c
+HEADERS = src/include/thermistor_utils.h
 
-OBJS = \
-	obj/sh_converter.o \
-	obj/beta_converter.o
+SOURCES = $(wildcard src/*.c)
+OBJS = $(patsubst src/%.c,obj/%.o,$(SOURCES))
+
+SRCEXAMPLES = $(wildcard examples/*.c)
+EXAMPLES = $(patsubst examples/%.c,bin/%,$(SRCEXAMPLES))
+
 
 .PHONY: all clean tests python-tests
 
-all: $(BIN)
+all: $(EXAMPLES)
 	
 
-$(BIN): $(SOURCE) $(HEADER) $(OBJS)
+bin/%: examples/%.c $(HEADERS) $(OBJS)
 	@mkdir -p bin
 	$(CC) -o $@ $(OBJS) $(CLIBS) $(CFLAGS) $<
 
-obj/%.o: $(SOURCEDIR)/thermistor_utils/%.c $(HEADER)
+.PRECIOUS: obj/%.o
+obj/%.o: src/%.c $(HEADERS)
 	@mkdir -p obj
 	$(CC) -c -o $@ $(CFLAGS) $<
 
@@ -36,5 +34,4 @@ python-tests:
 
 clean:
 	rm -f bin/* && rm -df bin/
-	
 	rm -f obj/* && rm -df obj/
