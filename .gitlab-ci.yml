@@ -4,6 +4,7 @@ image: python:latest
 
 test:
   script:
-    - python -m unittest tests
+    - make
+    - make tests
 #    - pip install tox flake8  # you can also use tox
 #    - tox -e py36,flake8
