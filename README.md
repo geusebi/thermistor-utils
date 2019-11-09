@@ -15,7 +15,7 @@ from thermistor_utils import SH_converter, Beta_converter
 Create a converter from A, B, and C coefficients
 
 ```python
-A, B, C = (values...)
+A, B, C = (0.0008402250578523375, 0.00025963477647737156, 1.5674403473853433e-07, )
 conv.SH_converter(A, B, C)
 ```
 
@@ -39,7 +39,7 @@ python and C
 ```python
 print(repr(conv))
 
-# SH_converter(A=0.0008402250578523375, B=0.00025963477647737156, C=1.5674403473853433e-07, Tl=0, Th=50)
+# SH_converter(0.0008402250578523375, 0.00025963477647737156, 1.5674403473853433e-07, 0, 50)
 
 print(conv.to_cstr())
 
@@ -47,7 +47,7 @@ print(conv.to_cstr())
 
 # compact but less precise representation
 # (inverse of coefficients and no temperature range)
-print(conv.to_cstr(compact=True, with_temp=False))
+print(conv.to_cstr(compact=True, with_temps=False))
 
 # {1./1190, 1./3852, 1./6379828}
 ```
@@ -55,9 +55,6 @@ print(conv.to_cstr(compact=True, with_temp=False))
 Use the reference implementation in C (example-1.c)
 
 ```c
-#include <stdio.h>
-#include <thermistor_utils.h>
-
 int main(void)
 {
     struct sh_s coefficients = {
@@ -73,11 +70,21 @@ int main(void)
     printf("25 Celsius -> %.0f Ohms\n", R_at_25);
     printf("10k Ohms   -> %.0f Celsius\n", T_at_10000);
 }
+```
 
-// gcc -o example-1 -I ../src -lm ../src/sh_converter.c example-1.c
-// ./example-1
-// 25 Celsius -> 10000 Ohms
-// 10k Ohms   -> 25 Celsius
+To compile and run from the examples directory:
+
+```bash
+$ mkdir -p ../bin
+$ gcc -o ../bin/example-1 \
+    -I../src/include \
+    ../src/sh_converter.c \
+    -lm \
+    example-1.c
+
+$ ../bin/example-1
+25 Celsius -> 10000 Ohms
+10k Ohms   -> 25 Celsius
 ```
 
 ## Beta model

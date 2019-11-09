@@ -17,7 +17,18 @@ int main(void)
     printf("10k Ohms   -> %.0f Celsius\n", T_at_10000);
 }
 
-// gcc -o example-1 -I ../src -lm ../src/sh_converter.c example-1.c
-// ./example-1
-// 25 Celsius -> 10000 Ohms
-// 10k Ohms   -> 25 Celsius
+/*
+To compile and run from the examples directory:
+
+    $ mkdir -p ../bin
+    $ gcc -o ../bin/example-1 \
+          -I../src/include \
+          ../src/sh_converter.c \
+          -lm \
+          example-1.c
+
+    $ ../bin/example-1
+    25 Celsius -> 10000 Ohms
+    10k Ohms   -> 25 Celsius
+
+*/
