@@ -12,7 +12,7 @@ from thermistor_utils import SH_converter, Beta_converter
 
 ## Steinhart--Hart model
 
-Create a converter from A, B, and C coefficients
+Create a converter from A, B, and C coefficients:
 
 ```python
 A, B, C = (0.0008402250578523375, 0.00025963477647737156, 1.5674403473853433e-07, )
@@ -22,7 +22,7 @@ conv.SH_converter(A, B, C)
 If they're not available the converter could compute the values from 
 three evenly spaced readings of temperature and resistance.
 
-Create the converter from temp/res readings
+Create the converter from temp/res readings:
 
 ```python
 readings = (
@@ -34,7 +34,7 @@ conv = SH_converter.from_points(readings)
 ```
 
 Printing the coefficients in a form suitable for subsequent use in 
-python and C
+python and C:
 
 ```python
 print(repr(conv))
@@ -52,9 +52,12 @@ print(conv.to_cstr(compact=True, with_temps=False))
 # {1./1190, 1./3852, 1./6379828}
 ```
 
-Use the reference implementation in C (example-1.c)
+Use the reference implementation in C (example-1.c):
 
 ```c
+#include <stdio.h>
+#include <thermistor_utils.h>
+
 int main(void)
 {
     struct sh_s coefficients = {
