@@ -1,9 +1,10 @@
 from math import sqrt, log, exp
 
 
-__ALL__ = ("SH_converter", )
+__all__ = ("SH_converter", )
 
 # todo: check all the docstrings
+
 
 class SH_converter(object):
     """
@@ -18,7 +19,7 @@ class SH_converter(object):
         `Tl` and `Th` are respectively the lower temperature and
         higher temperature from which the coefficients have been
         computed.
-        
+
         To create a converter starting from pairs of temperatures
         and resistances use `SH_converter.from_points`.
         """
@@ -31,7 +32,7 @@ class SH_converter(object):
         Create a `SH_converter` by computing coefficients from
         three evenly spaced temperature-resistance pairs.
         `TR_points` is a sequence of three temp/res pairs.
-        
+
         See `SH_converter`.
         """
         (T1, R1), (T2, R2), (T3, R3) = TR_points
@@ -51,7 +52,6 @@ class SH_converter(object):
 
         return SH_converter(A, B, C, T1, T3, )
 
-
     def temperature(self, R):
         """
         Calculate the temperature (Celsius) given the resistance.
@@ -70,9 +70,9 @@ class SH_converter(object):
 
         A, B, C = self.A, self.B, self.C
         x = 1 / (2 * C) * (A - 1 / Tk)
-        y = sqrt((B / (3 * C))**3 + x**2)            
+        y = sqrt((B / (3 * C))**3 + x**2)
         R = exp((y - x)**(1/3) - (y + x)**(1/3))
-        
+
         return R
 
     def _to_str_impl(self, compact=False, with_temps=True):
@@ -97,10 +97,10 @@ class SH_converter(object):
         Return a string with the `A`, `B` and `C` coefficients and,
         if available, the temperatures from which they've been
         derived.
-        
+
         Use `with_temp` to control whether the low/high temperature
         should be printed.
-        
+
         Use `compact` to use a shorter representation for `ABC`
         values (i.e. print the inverse formula for each coefficient).
         While prettier in source there could be a slight precision
@@ -112,9 +112,9 @@ class SH_converter(object):
     def __repr__(self):
         """
         Tentatively print the converter to satisfy
-            
+
             converter = eval(converter)
-        
+
         Where equality means different objects but same functionality.
         """
         s = self._to_str_impl(compact=False, with_temps=True)

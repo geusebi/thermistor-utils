@@ -1,12 +1,12 @@
 import unittest
-from thermistor_utils import *
+from thermistor_utils import SH_converter, Beta_converter
 from .reference_data import THERMISTORS
 
 from os import getcwd
 from pathlib import Path
 from subprocess import run, PIPE
 
-__ALL__ = ("CImplementation", )
+__all__ = ("CImplementation", )
 
 
 VALUES = THERMISTORS[0]["VALUES"]
@@ -30,7 +30,7 @@ class CImplementation(unittest.TestCase):
     def test_sh_full_range(self):
         ABC = ABC_0_50[:3]
         conv = SH_converter(*ABC_0_50)
-        
+
         for T_d, R_d in VALUES.items():
             R_c = th_conv("SH", *ABC, "T", T_d)
             T_c = th_conv("SH", *ABC, "R", R_d)
@@ -42,7 +42,7 @@ class CImplementation(unittest.TestCase):
     def test_beta_full_range(self):
         beta_values = BETA_25_50[:3]
         conv = Beta_converter(*BETA_25_50)
-        
+
         for T_d, R_d in VALUES.items():
             R_c = th_conv("BETA", *beta_values, "T", T_d)
             T_c = th_conv("BETA", *beta_values, "R", R_d)

@@ -1,9 +1,10 @@
 from math import log, exp
 
 
-__ALL__ = ("Beta_converter", )
+__all__ = ("Beta_converter", )
 
 # todo: check all the docstrings
+
 
 class Beta_converter(object):
     """
@@ -13,7 +14,7 @@ class Beta_converter(object):
     __slots__ = ("beta", "R0", "T0", "T1", )
 
     def __init__(self, beta, R0, T0, T1):
-        """ Create a converter where `beta` is the beta value in 
+        """ Create a converter where `beta` is the beta value in
         Kelvin and `R0` is the resistance at 25 degrees Celsius.
         `T0` and `T1` are respectively the temperature references
         used to calculate the beta value. """
@@ -29,7 +30,6 @@ class Beta_converter(object):
         """
         return Beta_converter(beta, R0, T0, T1)
 
-    
     def temperature(self, R):
         """
         Calculate the temperature (Celsius) given the resistance.
@@ -46,7 +46,7 @@ class Beta_converter(object):
         """
         T0 = self.T0 + 273.15
         beta, R0 = self.beta, self.R0
-        R = R0 * exp(beta * ( 1 / (T + 273.15) - 1 / T0))
+        R = R0 * exp(beta * (1 / (T + 273.15) - 1 / T0))
 
         return R
 
