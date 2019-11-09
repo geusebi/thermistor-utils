@@ -11,7 +11,8 @@ enum {TO_RES, TO_TEMP};
 void usage();
 int parse_opts(int, char *[], int *, int *);
 
-int main (int argc, char *argv[])
+int
+main (int argc, char *argv[])
 {
     int model, op;
     double value, result;
@@ -84,7 +85,9 @@ parse_opts(int argc, char *argv[], int *mod, int *op)
     return 1;
 }
 
-void usage(char *name) {
+void
+usage(char *name)
+{
     fprintf(stderr,
     "Usage: %s BETA <beta> <R0> <T0> {R|T} <value>\n"
     "       %s SH   <A>    <B>  <C>  {R|T} <value>\n"

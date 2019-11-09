@@ -1,4 +1,3 @@
-
 #ifndef _THERMISTOR_UTILS_H
 #define _THERMISTOR_UTILS_H
 
