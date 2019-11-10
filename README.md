@@ -16,7 +16,7 @@ Create a converter from A, B, and C coefficients:
 
 ```python
 A, B, C = (0.0008402250578523375, 0.00025963477647737156, 1.5674403473853433e-07, )
-conv.SH_converter(A, B, C)
+conv = SH_converter(A, B, C)
 ```
 
 If they're not available the converter could compute the values from 
@@ -92,4 +92,57 @@ $ ../bin/example-1
 
 ## Beta model
 
-todo: documentation in readme file
+Create a converter from beta values:
+
+```python
+beta, R0, T0 = (3380, 10000, 25)
+conv.Beta_converter(beta, R0, T0)
+```
+
+Printing the beta values in a form suitable for subsequent use in 
+python and C:
+
+```python
+print(repr(conv))
+
+# Beta_converter(3380, 10000, 25)
+
+print(conv.to_cstr())
+
+# {3380, 10000, 25}
+```
+
+Use the reference implementation in C (example-2.c):
+
+```c
+#include <stdio.h>
+#include <thermistor_utils.h>
+
+int main(void)
+{
+    struct beta_s bpar = {3380, 10000, 25};
+    
+    // 25C to Ohm and 10k Ohm to Celsius
+    double  R_at_25   = beta_resistance(bpar, 25),
+            T_at_10000 = beta_temperature(bpar, 10000);
+    
+    printf("25 Celsius -> %.0f Ohms\n", R_at_25);
+    printf("10k Ohms   -> %.0f Celsius\n", T_at_10000);
+}
+```
+
+To compile and run from the examples directory:
+
+```bash
+$ mkdir -p ../bin
+$ gcc -o ../bin/example-2 \
+      -I../src/include \
+      ../src/beta_converter.c \
+      -lm \
+      example-2.c
+
+$ ../bin/example-2
+25 Celsius -> 10000 Ohms
+10k Ohms   -> 25 Celsius
+
+```
