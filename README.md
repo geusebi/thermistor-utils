@@ -96,7 +96,7 @@ Create a converter from beta values:
 
 ```python
 beta, R0, T0 = (3380, 10000, 25)
-conv.Beta_converter(beta, R0, T0)
+conv = Beta_converter(beta, R0, T0)
 ```
 
 Printing the beta values in a form suitable for subsequent use in 
