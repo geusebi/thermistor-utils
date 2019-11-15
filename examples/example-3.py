@@ -18,6 +18,7 @@ Rs = (
 # Full temperature range scaled by 1 degree
 temp_range = tuple(range(min(Ts), max(Ts) + 1))
 
+
 def plot(title, Xs, Ys, label, outfile):
     """Utility function to plot subsequent charts."""
     plt.figure(figsize=(6, 3))
@@ -34,6 +35,7 @@ def plot(title, Xs, Ys, label, outfile):
 
     plt.savefig(outfile)
     plt.close()
+
 
 # Steinhart & Hart converter
 selected = (0, 25, 50)
