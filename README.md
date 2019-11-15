@@ -3,14 +3,19 @@
 A python based library implementing models to convert thermistor values 
 from temperature to resistance and vice versa.
 
-# How to use
+## Steinhart--Hart model
+
+### Implementation precision
+
+![SH resistance to temperature chart](charts/sh-res-temp.png "Steinhart & Hart model (py) resistance to temperature chart")
+![SH temperature to resistance chart](charts/sh-temp-res.png "Steinhart & Hart model (py) temperature to resistance chart")
+
+### How to use
 
 ```python
 # import the Steinhart--Hart and or the Beta converter
-from thermistor_utils import SH_converter, Beta_converter
+from thermistor_utils import SH_converter
 ```
-
-## Steinhart--Hart model
 
 Create a converter from A, B, and C coefficients:
 
@@ -91,6 +96,18 @@ $ ../bin/example-1
 ```
 
 ## Beta model
+
+### Implementation precision
+
+![Beta resistance to temperature chart](charts/beta-res-temp.png "Beta model (py) resistance to temperature chart")
+![Beta temperature to resistance chart](charts/beta-temp-res.png "Beta model (py) temperature to resistance chart")
+
+### How to use
+
+```python
+# import the Steinhart--Hart and or the Beta converter
+from thermistor_utils import Beta_converter
+```
 
 Create a converter from beta values:
 
