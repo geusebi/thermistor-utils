@@ -65,6 +65,9 @@ class SH_converter(object):
     def resistance(self, T):
         """
         Calculate the resistance given the temperature (Celsius).
+        
+        Raise `ValueError` or `TypeError` if the coefficients are unfit
+        to find the value with this implementation.
         """
         Tk = T + 273.15
 
