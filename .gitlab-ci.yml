@@ -14,9 +14,12 @@ test-all:
 deploy-pypi:
   stage: deploy
   when: manual
+  variables:
+    TWINE_USERNAME: PYPI_USERNAME
+    TWINE_PASSWORD: PYPI_PASSWORD
   script:
     - pip install wheel 
     - pip install twine 
     - python setup.py sdist bdist_wheel
-    # upload
+    - twine upload dist/*
 
