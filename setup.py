@@ -10,7 +10,7 @@ with open("README.md") as fh:
 
 setuptools.setup(
     name='thermistor_utils',
-    version='0.0.1',
+    version='0.0.2',
     packages=('thermistor_utils', ),
 
     description=short_desc,
