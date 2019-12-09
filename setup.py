@@ -1,22 +1,14 @@
 import setuptools
-import re
 
 short_desc = (
     'Steinhart -- Hart and Beta thermistor temperature model in '
     'Python and C. Implementation and utilities'
 )
-
-with open("README.md") as fh:
-    raw_url = 'https://gitlab.com/geusebi/thermistor-utils/raw/master/'
-
-    ref_re = re.compile("\[(.+?)]: *(.+?)")
-    img_re = re.compile("!\[(.+?)] *\((.+?)\)")
-    long_desc = ref_re.sub(f"[\\1]: {raw_url}\\2", fh.read())
-    long_desc = img_re.sub(f"![\\1]({raw_url}\\2)", long_desc)
+long_desc = open("README.md").read()
 
 setuptools.setup(
     name='thermistor_utils',
-    version='0.0.3',
+    version='0.0.4',
     packages=('thermistor_utils', ),
 
     description=short_desc,
